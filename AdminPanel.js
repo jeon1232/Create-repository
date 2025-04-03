@@ -48,43 +48,29 @@ export default function AdminPanel() {
       {customerList.map((customer) => {
         const stamps = getCustomerStamps(customer.phoneNumber);
         return (
-          <div
-            key={customer.phoneNumber}
-            className="border rounded-lg p-4 shadow bg-white space-y-2"
-          >
+          <div key={customer.phoneNumber} className="border rounded-lg p-4 shadow bg-white space-y-2">
             <p>📱 전화번호: {customer.phoneNumber}</p>
             <p>📅 마지막 방문: {formatDistanceToNow(new Date(customer.lastVisit))} 전</p>
             <p>🔢 총 스탬프 수: {stamps.length}</p>
 
             <div className="flex flex-wrap gap-2">
-              <button
-                className="bg-blue-500 text-white px-3 py-1 rounded"
-                onClick={() =>
-                  setExpandedCustomer(
-                    expandedCustomer === customer.phoneNumber ? null : customer.phoneNumber
-                  )
-                }
-              >
+              <button className="bg-blue-500 text-white px-3 py-1 rounded" onClick={() =>
+                setExpandedCustomer(expandedCustomer === customer.phoneNumber ? null : customer.phoneNumber)
+              }>
                 {expandedCustomer === customer.phoneNumber ? "내역 닫기" : "적립 내역 보기"}
               </button>
 
-              <button
-                className="bg-red-500 text-white px-3 py-1 rounded"
-                onClick={() => {
-                  if (confirm("정말 이 고객의 스탬프 내역을 삭제하시겠습니까?")) {
-                    deleteCustomerStamps(customer.phoneNumber);
-                    setExpandedCustomer(null);
-                    alert("스탬프 내역이 삭제되었습니다.");
-                  }
-                }}
-              >
+              <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => {
+                if (confirm("정말 이 고객의 스탬프 내역을 삭제하시겠습니까?")) {
+                  deleteCustomerStamps(customer.phoneNumber);
+                  setExpandedCustomer(null);
+                  alert("스탬프 내역이 삭제되었습니다.");
+                }
+              }}>
                 스탬프 내역 삭제
               </button>
 
-              <button
-                className="bg-yellow-500 text-white px-3 py-1 rounded"
-                onClick={() => sendRandomEventText(customer.phoneNumber)}
-              >
+              <button className="bg-yellow-500 text-white px-3 py-1 rounded" onClick={() => sendRandomEventText(customer.phoneNumber)}>
                 🎈 이벤트 문자 발송
               </button>
             </div>
@@ -95,10 +81,7 @@ export default function AdminPanel() {
                   <p className="text-sm">적립 내역이 없습니다.</p>
                 ) : (
                   stamps.map((s) => (
-                    <div
-                      key={s.id}
-                      className="text-sm border-b pb-1 flex justify-between"
-                    >
+                    <div key={s.id} className="text-sm border-b pb-1 flex justify-between">
                       <span>📅 {new Date(s.earnedDate).toLocaleDateString()}</span>
                       <span>{s.usedDate ? "✅ 사용됨" : "🕓 미사용"}</span>
                     </div>
